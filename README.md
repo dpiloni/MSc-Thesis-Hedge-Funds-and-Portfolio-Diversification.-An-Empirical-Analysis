@@ -25,9 +25,24 @@ Finally I measure the performance of the portfolios obtained:
 ## Data 
 
 ## Results
-1. Correlation Analysis
-    * Unconditional correlation
- 
+
+    
+     
+    
+| Credit Suisse Hedge Fund Index   |  Min | Max  | Median (ann)  | Mean (ann)  | Std.Dev (ann)  |  Skewness | Kurtosis  |
+|:--|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Long/Short Equity  | -11,43%  |   |   |   |   |   |   |
+| Emerging Markets  |   |   |   |   |   |   |   |
+| Global Macro  |   |   |   |   |   |   |   |
+| Managed Futures  |   |   |   |   |   |   |   |
+| Convertible Arbitrage  |   |   |   |   |   |   |   |
+| Equity Market Neutral  |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |
 <p align="center">
   <img src="https://user-images.githubusercontent.com/78954578/113745858-f8d0db80-9705-11eb-8355-95f6f541d536.jpg" width="700" height="300">
 </p>
