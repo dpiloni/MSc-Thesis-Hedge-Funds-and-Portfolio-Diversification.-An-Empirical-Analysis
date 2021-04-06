@@ -26,4 +26,6 @@ Finally I measure the performance of the portfolios obtained:
 
 ## Results
 * Correlation Analysis
-<img src="https://user-images.githubusercontent.com/78954578/113745858-f8d0db80-9705-11eb-8355-95f6f541d536.jpg" width="700" height="300">
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/78954578/113745858-f8d0db80-9705-11eb-8355-95f6f541d536.jpg" width="700" height="300">
+</p>
