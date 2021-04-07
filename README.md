@@ -20,6 +20,7 @@ NOTE: the original text is provided in Italian language. However, in this file I
     </div>
 
 ## Introduction <a id="1"></a>
+Hedge funds are alternative investment vehicles, whose market has grown fast in the last decade. In particular, institutional investors include hedge funds in their portfolio because they offer higher expected returns and greater diversification across asset classes. On the other side, hedge funds also offer more complex risk exposures, including illiquidity and tail risk. The objective of the analysis is to verify the effective ability of hedge fund manager to decorrelate from the markets, and if this feature can have a positive impact when it comes to portfolio optimization. In fact, by including an asset class well diversified from the others could deliver to investor different benefits, especially during market crisis.
 
 ## Data <a id="2"></a>
 The analysis is performed using monthly data for to the period April 1994 - June 2020 (in US dollars).
@@ -41,7 +42,7 @@ In order to measure the different asset classes I use:
 
 Descriptive Statistics:
 
-| Statistics  | Min  | Max  | Median (annualized)  | Mean (annualized)  | Dev. Std (annualized) | Skewness  | Kurtosis  |
+| Statistics  | Min  | Max  | Median (annualized)  | Mean (annualized)  | Std.Dev (annualized) | Skewness  | Kurtosis  |
 |:--|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | Long/Short Equity  | -11,43%  | 13,01%  | 8,76%  | 8,40%  | 8,94%  | -0,06  | 7,01  | 
 | Emerging Markets  | -23,03%  |  16,42% | 11,52%  | 7,20%  | 12,99%  | -0,86  | 9,70  |  
@@ -312,7 +313,7 @@ Finally I measure the performance of the portfolios obtained:
 
 The portfolios are subject to full investment constraint, no short-selling constraint and diversification constraint (min weight 10%, max weight 50%)
 
-| Portfolios  | Hedge Fund Weight  | Stock Weight  | Bond Weight  | Commodities Weight  | Min  | Max  | Mean (annualized)  | Dev. Std. (annualized)  | Skewness  | Kurtosis  |
+| Portfolios  | Hedge Fund Weight  | Stock Weight  | Bond Weight  | Commodities Weight  | Min  | Max  | Mean (annualized)  | Std.Dev (annualized)  | Skewness  | Kurtosis  |
 |:--|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | Long/Short Equity  | 0,50  | 0,12  | 0,18  | 0,10  | -10,29%  | 7,82%  | 6,47%  | 7,72%  | -0,81  | 6,47  |
 | Emerging Markets  | 0,11  | 0,32  | 0,47  | 0,10  | -12,88%  | 7,46%  | 5,63%  | 8,11%  | -1,11  | 7,47  |
@@ -331,7 +332,7 @@ The portfolios are subject to full investment constraint, no short-selling const
 
 ### Performance Evaluation
 
-1. Risk-adjusted Performance
+#### 1. Risk-adjusted Performance
 
 | Sharpe Ratio  | Unadjusted  | Unsmoothed  | Lo's Version  |   
 |:--|:-:|:-:|:-:|
@@ -351,7 +352,7 @@ The portfolios are subject to full investment constraint, no short-selling const
 * Best risk-adjusted performances for Global Macro, Long/Short Equity and Distressed Securities portfolios
 * Poor performance for Managed Futures and Equity Market Neutral portfolios
 
-2. Alpha in the Asness 3-lag CAPM
+#### 2. Alpha in the Asness 3-lag CAPM
 
 | 3-lag CAPM  | Alpha (annualized)  | Beta0  | Beta1  | Beta2  | Beta3  | Adjusted R-Squared  |   
 |:--|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -366,5 +367,44 @@ The portfolios are subject to full investment constraint, no short-selling const
 | Fixed Income Arbitrage  | 0,01  | 0,47***  | 0,02  | 0,01  | 0,01  | 0,70  |   
 | Multi-Strategy  | 0,02*  | 0,43***  | 0,05***  | 0,02  | 0,01  | 0,69  |
 
+* Following the authors, S&P 500 is used as a proxy of the market portfolio
+* (\*), (\**), (\***) correspond to a 10%, 5% and 1% significance level
+* Long/Short Equity, Global Macro, Distressed Securities and Multi-Strategy portfolios show a significant extra-performance over the market portfolio
+
+#### 3. Alpha in the Fung & Hsieh risk factor model
+
+* Unfortunately, not a single portfolio shows a statistically significant alpha coefficient
+* Compared to the previous model, it's possible to assume that the eight risk factors considered by the authors are no longer able to describe hedge funds risk, or at least portfolios containing hedge funds
+
+#### 4. Ex-post performance
+
+![ex post](https://user-images.githubusercontent.com/78954578/113895606-6c87ec80-97c9-11eb-8dcb-8c0025bc4c6e.jpg)
+
+| Ex-post Analysis  | Max Drawdown  | Calmar Ratio  |   
+|:--|:-:|:-:|
+| Long/Short Equity  | -27,63%  | 0,020  |   
+| Emerging Markets  | -32,19%  | 0,015  |   
+| Global Macro  | -30,48%  | 0,021  |   
+| Managed Futures  | -28,79%  | 0,016  |   
+| Convertible Arbitrage  | -33,49%  | 0,014  |   
+| Equity Market Neutral  | -36,32%  | 0,013  |   
+| Event Driven  | -29,84%  | 0,017  |   
+| Distressed Securities  | -31,39%  | 0,017  |   
+| Fixed Income Arbitrage  | -35,49%  | 0,013  |   
+| Multi-Strategy  | -36,05%  | 0,015  |   
+| Bond/Equity/Commodities  | -33,34%  | 0,014  |
+
+* Once again, Global Macro and Long/Short Equity portfolios are the most efficient ones 
 
 ## Conclusions <a id="5"></a>
+* The ability of the different hedge fund strategies to decorrelate from the markets doesn't seem to be a key feature when it comes to deliver a higher portfolio performance
+* Hedge funds appear more useful to boost the overall performance, rather than to diversify an investment portfolio
+* The most efficient strategies, in terms of risk-adjusted performance and maximum drawdown reduction, are Global Macro, Long/Short Equity and Distressed Securities
+* Results obtained must be contextualized in the historical period observed: the strong bull market phases have definitely benefited directional strategies, like Long/Short and Global Macro, who are able to exploit strong market trends
+
+### References
+- Asness C., Krail R., Liew J. (2001). Alternative Investments: Do Hedge Funds Hedge?. Journal of Portfolio Management.
+- Brooks C., Kat H. M. (2001). The Statistical Properties of Hedge Fund Index Returns and Their Implications for Investors. Working Paper, Alternative Investments Research Centre.
+- Davies R. J., Kat H. M., Lu S. (2009). Fund of Hedge Funds Portfolio Selection: A Multiple-Objective Approach. Journal of Derivatives & Hedge Funds. 
+- Fung H., Hsieh D. A. (2004). Hedge Fund Benchmarks: A Risk Based Approach. Financial Analysts Journal.
+- Lo A. W. (2002). The Statistics of Sharpe Ratios. Financial Analysts Journal.
