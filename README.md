@@ -1,7 +1,7 @@
 # MSc Thesis | Hedge fund and Portfolio Diversification. An Empirical Analysis
 ### (Original title: Gli hedge fund e la diversificazione di portafoglio. Un'analisi empirica)
 
-NOTE: the original text is provided in Italian language. However, in this file I present all the key findings of the analysis.
+NOTE: the original [document](https://github.com/dpiloni/MSc-Thesis-Hedge-fund-and-Portfolio-Diversification.-An-Empirical-Analysis/blob/main/MSc_Thesis.pdf) is provided in Italian language. However, in this file I present all the key findings of the analysis.
 
 ## Overview
 * Identified which hedge fund strategies are able to decorrelate from stock and bond markets, especially during bear market phases, and if this feature can deliver benefits to a diversified portfolio (increase of risk-adjusted performance and/or maximum drawdown reduction)
