@@ -1,0 +1,278 @@
+%dataset Unsmoothed
+u_lshort=datasetU(:,1);
+u_emmkt=datasetU(:,2);
+u_globmacro=datasetU(:,3);
+u_mngfutures=datasetU(:,4);
+u_convarb=datasetU(:,5);
+u_eqmneutral=datasetU(:,6);
+u_evdriven=datasetU(:,7);
+u_distrsec=datasetU(:,8);
+u_fixinarb=datasetU(:,9);
+u_multi=datasetU(:,10);
+u_azioni=datasetU(:,11);
+u_obblig=datasetU(:,12);
+u_comm=datasetU(:,13);
+%PORTAFOGLI
+%lshort
+%calcolo vettori/matrici
+matricerendimenti1=[u_lshort u_azioni u_obblig u_comm];
+mu1=mean(matricerendimenti1)';
+sigma1=cov(matricerendimenti1);
+%portafoglioMV
+fun=@(x)-x'*mu1;
+nlcon=@nlcon;
+A=[];
+b=[];
+Aeq=[1 1 1 1];
+beq=1;
+lb=[0;0;0];
+ub=[0.5;0.5;0.5];
+x0=[0;0;0.1;0.1];
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti1,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti1,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu1)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));    
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%emmkt
+%calcolo vettori/matrici
+matricerendimenti2=[u_emmkt u_azioni u_obblig u_comm];
+mu2=mean(matricerendimenti2)';
+sigma2=cov(matricerendimenti2);
+%portafoglioMV
+fun=@(x)-x'*mu2;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti2,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti2,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)((1+Z1-x'*mu2)^0+(1+Z3-x'*coskewness*kron(x,x))^3+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x))));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%globmacro
+%calcolo vettori/matrici
+matricerendimenti3=[u_globmacro u_azioni u_obblig u_comm];
+mu3=mean(matricerendimenti3)';
+sigma3=cov(matricerendimenti3);
+%portafoglioMV
+fun=@(x)-x'*mu3;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti3,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti3,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu3)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%mngfutures
+%calcolo vettori/matrici
+matricerendimenti4=[u_mngfutures u_azioni u_obblig u_comm];
+mu4=mean(matricerendimenti4)';
+sigma4=cov(matricerendimenti4);
+%portafoglioMV
+fun=@(x)-x'*mu4;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti4,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti4,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu4)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%convarb
+%calcolo vettori/matrici
+matricerendimenti5=[u_convarb u_azioni u_obblig u_comm];
+mu5=mean(matricerendimenti5)';
+sigma5=cov(matricerendimenti5);
+%portafoglioMV
+fun=@(x)-x'*mu5;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti5,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti5,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu5)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%eqmneutral
+%calcolo vettori/matrici
+matricerendimenti6=[u_eqmneutral u_azioni u_obblig u_comm];
+mu6=mean(matricerendimenti6)';
+sigma6=cov(matricerendimenti6);
+%portafoglioMV
+fun=@(x)-x'*mu6;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti6,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti6,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu6)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%evdriven
+%calcolo vettori/matrici
+matricerendimenti7=[u_evdriven u_azioni u_obblig u_comm];
+mu7=mean(matricerendimenti7)';
+sigma7=cov(matricerendimenti7);
+%portafoglioMV
+fun=@(x)-x'*mu7;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti7,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti7,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu7)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%distrsec
+%calcolo vettori/matrici
+matricerendimenti8=[u_distrsec u_azioni u_obblig u_comm];
+mu8=mean(matricerendimenti8)';
+sigma8=cov(matricerendimenti8);
+%portafoglioMV
+fun=@(x)-x'*mu8;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti8,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti8,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu8)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%fixinarb
+%calcolo vettori/matrici
+matricerendimenti9=[u_fixinarb u_azioni u_obblig u_comm];
+mu9=mean(matricerendimenti9)';
+sigma9=cov(matricerendimenti9);
+%portafoglioMV
+fun=@(x)-x'*mu9;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti9,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti9,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu9)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%multi
+%calcolo vettori/matrici
+matricerendimenti10=[u_multi u_azioni u_obblig u_comm];
+mu10=mean(matricerendimenti10)';
+sigma10=cov(matricerendimenti10);
+%portafoglioMV
+fun=@(x)-x'*mu10;
+nlcon=@nlcon;
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z1=-fval1;
+%portafoglioSV
+[~,~,coskewness,~]=co_moments(matricerendimenti10,0);
+fun=@(x)-x'*coskewness*kron(x,x);
+[x,fval2,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z3=-fval2;
+%portafoglioKV
+[~,~,~,cokurt]=co_moments(matricerendimenti10,0);
+fun=@(x)x'*cokurt*kron(x,kron(x,x));
+[x,fval3,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+Z4=fval3;
+%portafoglioMVSK
+fun=@(x)(1+Z1-x'*mu10)+(1+Z3-x'*coskewness*kron(x,x))+...
+    (1+Z4-x'*cokurt*kron(x,kron(x,x)));
+[x,fvalMVSK,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
+%bond/equity
+%calcolo vettori/matrici
+%importo direttamente matrice da excel
+mu=mean(matricerendimenti)';
+sigma=cov(matricerendimenti);
+%portafoglioMV
+fun=@(x)-x'*mu1;
+nlcon=@nlcon;
+A=[];
+b=[];
+Aeq=[1 1 1];
+beq=1;
+lb=[0;0;0];
+ub=[1;1;1];
+x0=[0;0;0];
+[x,fval1,exitflag]=fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nlcon);
