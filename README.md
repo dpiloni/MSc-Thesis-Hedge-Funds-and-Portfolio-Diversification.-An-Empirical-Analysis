@@ -25,10 +25,10 @@ Hedge funds are alternative investment vehicles, whose market has grown fast in 
 ## Data <a id="2"></a>
 The analysis is performed using monthly data for to the period April 1994 - June 2020 (in US dollars).
 In order to measure the different asset classes I use:
-* Equity: MSCI All Country World Index
-* Bonds: Bloomberg Barclays Global Aggregate
-* Commodities: Standard & Poor's GSCI
-* Hedge Funds: Credit Suisse Hedge Fund Indexes for every strategy considered
+* Equity: MSCI All Country World Index (source: Morningstar Direct)
+* Bonds: Bloomberg Barclays Global Aggregate (source: Morningstar Direct)
+* Commodities: Standard & Poor's GSCI (source: Morningstar Direct)
+* Hedge Funds: Credit Suisse Hedge Fund Indexes for every strategy considered (source: Credit Suisse)
     * Long/Short Equity
     * Emerging Markets
     * Global Macro
@@ -58,6 +58,7 @@ Descriptive Statistics:
 | Bloomberg Barclays Global Aggregate  | -3,97%  | 6,21%  | 5,53%  | 4,94%  | 5,29%  | -0,01  | 3,75  |   
 | Standard & Poor's GSCI  | -34,85%  | 17,95%  | 6,83%  | -1,08%  | 22,89%  | -0,97  | 6,62  |   
 
+![figura 2-confronto con normale](https://user-images.githubusercontent.com/78954578/114316271-1b4a6680-9b03-11eb-84a9-f4d93a0db9e8.jpg)
 
 * Common Hedge Fund returns issues: negative skewness, high excess kurtosis and autocorrelation 
 * To solve autocorrelation issue, I use the unsmoothing technique proposed by Brooks & Kat (2001).
