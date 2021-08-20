@@ -1,4 +1,4 @@
-# MSc Thesis | Hedge fund and Portfolio Diversification. An Empirical Analysis
+# MSc Thesis: Hedge Funds and Portfolio Diversification. An Empirical Analysis.
 ### (Original title: Gli hedge fund e la diversificazione di portafoglio. Un'analisi empirica)
 
 NOTE: the original <b>[document](https://github.com/dpiloni/MSc-Thesis-Hedge-fund-and-Portfolio-Diversification.-An-Empirical-Analysis/blob/main/MSc_Thesis.pdf)</b> is provided in Italian language. However, in this file I present all the key findings of the analysis.
